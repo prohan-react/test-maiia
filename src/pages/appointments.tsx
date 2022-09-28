@@ -2,8 +2,30 @@ import AppointmentForm from 'components/AppointmentForm';
 import AppointmentList from 'components/AppointmentList';
 import Section from 'components/Section';
 import AllTasks from 'components/AllTasks';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPractitioners, practitionersSelectors } from 'store/practitioners';
+import { getPatients, patientsSelectors } from 'store/patients';
 
 const AppointmentsPage = () => {
+  const dispatch = useDispatch();
+  const practitioners = useSelector((state) =>
+    practitionersSelectors.selectAll(state.practitioners),
+  );
+  const patients = useSelector((state) =>
+    patientsSelectors.selectAll(state.patients),
+  );
+
+  useEffect(() => {
+    dispatch(getPractitioners());
+    dispatch(getPatients());
+  }, []);
+
+  const appointmentProps = {
+    practitioners,
+    patients,
+  };
+
   return (
     <div className="appointment page">
       <h1>Appointments</h1>
@@ -45,7 +67,7 @@ const AppointmentsPage = () => {
           title="Appointment Form"
           className="appointment__form"
         >
-          <AppointmentForm />
+          <AppointmentForm {...appointmentProps} />
         </Section>
         <Section
           name="appointment-list"
