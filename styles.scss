@@ -1,0 +1,15 @@
+:root {
+  --header-height: 60px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  font-family: monospace;
+}

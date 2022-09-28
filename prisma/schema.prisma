@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Practitioner {
+  id          Int  @default(autoincrement()) @id
+  firstName   String
+  lastName    String
+  speciality  String
+}
+
+model Patient {
+  id          Int  @default(autoincrement()) @id
+  firstName   String
+  lastName    String
+  birthDate   DateTime
+}
+
+model Appointment {
+  id              Int  @default(autoincrement()) @id
+  patientId       Int
+  practitionerId  Int
+  startDate       DateTime
+  endDate         DateTime
+}
+
+model Availability {
+  id              Int  @default(autoincrement()) @id
+  practitionerId  Int
+  startDate       DateTime
+  endDate         DateTime
+}
+
+model Timeslot {
+  id              Int  @default(autoincrement()) @id
+  practitionerId  Int
+  startDate       DateTime
+  endDate         DateTime
+}
